@@ -116,7 +116,7 @@ function Purchase() {
 
       <div className="purchaseValue">
         <div className="container">
-          <h2>Current Balance</h2>
+          <h2>CURRENT BALANCE</h2>
           <p>
             <NumberFormat
               value={currentBalance}

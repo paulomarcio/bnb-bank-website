@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import NumberFormat from 'react-number-format';
 import * as yup from 'yup';
 import { Form } from '@unform/web';
 import { useHistory, Link } from 'react-router-dom';
 
+import { TransactionType } from '../../utils/contants';
 import { useApp } from '../../providers/AppProvider';
 
 import Header from '../../components/Header';
@@ -22,8 +24,9 @@ function CheckDeposit() {
   const formRef = useRef(null);
   const inputFileRef = useRef(null);
   const [amount, setAmount] = useState(0);
+  const [currentBalance, setCurrentBalance] = useState(0);
   const [checkImage, setCheckImage] = useState(null);
-  const { setIsMenuActive } = useApp();
+  const { setIsMenuActive, user } = useApp();
 
   const onFilechange = e => {
     const reader = new FileReader();
@@ -48,8 +51,14 @@ function CheckDeposit() {
       // Remove all previous errors
       formRef.current.setErrors({});
 
+      const { token } = user;
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
       const { description } = data;
       const income = {
+        type: TransactionType.INCOME,
         amount: Number(
           String(amount).replace('$', '').replace(',', '.'),
         ).toFixed(2),
@@ -63,13 +72,13 @@ function CheckDeposit() {
       });
 
       await api
-        .post('transactions', income)
+        .post('transactions', income, config)
         .then(() => {
           // Redirecting authenticated user to home page
           history.push('/checks');
         })
         .catch(err => {
-          // TO-DO: Implement API error handler
+          console.log(err);
         });
     } catch (err) {
       const validationErrors = {};
@@ -81,15 +90,34 @@ function CheckDeposit() {
 
         formRef.current.setErrors(validationErrors);
       } else {
-        // TO-DO: Implement error handler for other type of errors
+        console.log(err);
       }
     }
   };
 
   useEffect(() => {
+    const loadCurrentBalance = async () => {
+      const { token } = user;
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      await api
+        .get('users/balance', config)
+        .then(response => {
+          const { balance } = response.data;
+          setCurrentBalance(balance);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+
     window.document.title = 'BNB Bank - Check Deposit';
     window.scrollTo(0, 0);
     setIsMenuActive(false);
+
+    loadCurrentBalance();
   }, []);
 
   return (
@@ -100,7 +128,16 @@ function CheckDeposit() {
       <div className="DepositValue">
         <div className="container">
           <h2>CURRENT BALANCE</h2>
-          <p>$6320.00</p>
+          <p>
+            <NumberFormat
+              value={currentBalance}
+              displayType="text"
+              thousandSeparator
+              prefix="$"
+              allowNegative
+              renderText={(value, props) => <span {...props}>{value}</span>}
+            />
+          </p>
         </div>
       </div>
 
