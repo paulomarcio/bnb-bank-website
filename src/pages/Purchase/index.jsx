@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import NumberFormat from 'react-number-format';
 import * as yup from 'yup';
 import { Form } from '@unform/web';
 import { useHistory, Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
+import { TransactionType } from '../../utils/contants';
 import { useApp } from '../../providers/AppProvider';
 
 import Header from '../../components/Header';
@@ -23,7 +25,8 @@ function Purchase() {
   const history = useHistory();
   const formRef = useRef(null);
   const [amount, setAmount] = useState(0);
-  const { setIsMenuActive } = useApp();
+  const [currentBalance, setCurrentBalance] = useState(0);
+  const { setIsMenuActive, user } = useApp();
 
   const handleCurrencyInputChange = (e, masked, value) => {
     setAmount(masked);
@@ -34,8 +37,14 @@ function Purchase() {
       // Remove all previous errors
       formRef.current.setErrors({});
 
+      const { token } = user;
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
       const { transaction_date, description } = data;
       const purchase = {
+        type: TransactionType.EXPENSE,
         amount: Number(
           String(amount).replace('$', '').replace(',', '.'),
         ).toFixed(2),
@@ -51,13 +60,13 @@ function Purchase() {
       });
 
       await api
-        .post('transactions', purchase)
+        .post('transactions', purchase, config)
         .then(() => {
           // Redirecting authenticated user to home page
           history.push('/expenses');
         })
         .catch(err => {
-          // TO-DO: Implement API error handler
+          console.log(err);
         });
     } catch (err) {
       const validationErrors = {};
@@ -76,9 +85,28 @@ function Purchase() {
   };
 
   useEffect(() => {
+    const loadCurrentBalance = async () => {
+      const { token } = user;
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      await api
+        .get('users/balance', config)
+        .then(response => {
+          const { balance } = response.data;
+          setCurrentBalance(balance);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+
     window.document.title = 'BNB Bank - Purchase';
     window.scrollTo(0, 0);
     setIsMenuActive(false);
+
+    loadCurrentBalance();
   }, []);
 
   return (
@@ -89,7 +117,16 @@ function Purchase() {
       <div className="purchaseValue">
         <div className="container">
           <h2>Current Balance</h2>
-          <p>$6320.00</p>
+          <p>
+            <NumberFormat
+              value={currentBalance}
+              displayType="text"
+              thousandSeparator
+              prefix="$"
+              allowNegative
+              renderText={(value, props) => <span {...props}>{value}</span>}
+            />
+          </p>
         </div>
       </div>
 
