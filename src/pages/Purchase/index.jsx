@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import NumberFormat from 'react-number-format';
 import * as yup from 'yup';
 import { Form } from '@unform/web';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import format from 'date-fns/format';
 
 import { TransactionType } from '../../utils/contants';

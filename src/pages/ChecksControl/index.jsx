@@ -19,7 +19,13 @@ function ChecksControl() {
     transactions,
     setTransactions,
     filteredTransactions,
+    setSelectedCheck,
   } = useApp();
+
+  const handleTransactionSelection = (e, transaction) => {
+    sessionStorage.setItem('transaction', JSON.stringify(transaction));
+    setSelectedCheck(transaction);
+  };
 
   useEffect(() => {
     const loadTransactions = async () => {
@@ -62,7 +68,12 @@ function ChecksControl() {
                 .map(transaction => (
                   <li key={transaction.id}>
                     <div className="transactionsDetails">
-                      <Link to="/incomes/details">
+                      <Link
+                        onClick={e =>
+                          handleTransactionSelection(e, transaction)
+                        }
+                        to="/incomes/details"
+                      >
                         <h4>{transaction.description}</h4>
                         <p>
                           {format(
@@ -77,7 +88,12 @@ function ChecksControl() {
                       </Link>
                     </div>
                     <div className="transactionsPrice">
-                      <Link to="/incomes/details">
+                      <Link
+                        onClick={e =>
+                          handleTransactionSelection(e, transaction)
+                        }
+                        to="/incomes/details"
+                      >
                         {transaction.type === TransactionType.EXPENSE && (
                           <p className="negative">
                             <NumberFormat

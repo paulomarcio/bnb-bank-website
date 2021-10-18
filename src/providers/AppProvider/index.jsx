@@ -6,7 +6,9 @@ function AppProvider({ children }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [selectedCheck, setSelectedCheck] = useState(null);
+  const [selectedCheck, setSelectedCheck] = useState(() => {
+    return JSON.parse(sessionStorage.getItem('transaction')) || false;
+  });
   const [user, setUser] = useState(() => {
     return JSON.parse(sessionStorage.getItem('user')) || false;
   });
