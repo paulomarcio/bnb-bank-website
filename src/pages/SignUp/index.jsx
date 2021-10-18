@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { Form } from '@unform/web';
 import { useHistory, Link } from 'react-router-dom';
 
+import { useApp } from '../../providers/AppProvider';
+
 import Input from '../../components/Input';
 
 import { signUpSchema } from '../../schemas';
@@ -11,6 +13,7 @@ import api from '../../services/api';
 function SignUp() {
   const history = useHistory();
   const formRef = useRef(null);
+  const { setUser } = useApp();
 
   const handleSubmit = async data => {
     try {
@@ -25,14 +28,15 @@ function SignUp() {
 
       await api
         .post('users', data)
-        .then(() => {
-          // TO-DO: Implement user session handler
+        .then(response => {
+          sessionStorage.setItem('user', JSON.stringify(response.data));
+          setUser(response.data);
 
           // Redirecting authenticated user to home page
           history.push('/home');
         })
         .catch(err => {
-          // TO-DO: Implement API error handler
+          console.log(err);
         });
     } catch (err) {
       const validationErrors = {};
@@ -44,7 +48,7 @@ function SignUp() {
 
         formRef.current.setErrors(validationErrors);
       } else {
-        // TO-DO: Implement error handler for other type of errors
+        console.log(err);
       }
     }
   };
