@@ -5,16 +5,15 @@ import parse from 'date-fns/parse';
 import { Link } from 'react-router-dom';
 
 import { TransactionType } from '../../utils/contants';
+import { useApp } from '../../providers/AppProvider';
 
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
-import { useApp } from '../../providers/AppProvider';
-
 import api from '../../services/api';
 
 function Home() {
-  const { user } = useApp();
+  const { user, setIsMenuActive } = useApp();
   const [balances, setBalances] = useState([]);
 
   useEffect(() => {
@@ -36,6 +35,7 @@ function Home() {
 
     window.document.title = 'BNB Bank - Home';
     window.scrollTo(0, 0);
+    setIsMenuActive(false);
 
     loadBalances();
   }, []);

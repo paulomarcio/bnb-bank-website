@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
+
+import { useApp } from '../../providers/AppProvider';
+
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
 function Expenses() {
+  const { setIsMenuActive } = useApp();
+
   useEffect(() => {
     window.document.title = 'BNB Bank - Expenses';
     window.scrollTo(0, 0);
+    setIsMenuActive(false);
   }, []);
 
   return (

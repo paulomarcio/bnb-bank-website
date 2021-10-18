@@ -4,6 +4,8 @@ import { Form } from '@unform/web';
 import { useHistory, Link } from 'react-router-dom';
 import format from 'date-fns/format';
 
+import { useApp } from '../../providers/AppProvider';
+
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Input from '../../components/Input';
@@ -21,6 +23,7 @@ function Purchase() {
   const history = useHistory();
   const formRef = useRef(null);
   const [amount, setAmount] = useState(0);
+  const { setIsMenuActive } = useApp();
 
   const handleCurrencyInputChange = (e, masked, value) => {
     setAmount(masked);
@@ -75,6 +78,7 @@ function Purchase() {
   useEffect(() => {
     window.document.title = 'BNB Bank - Purchase';
     window.scrollTo(0, 0);
+    setIsMenuActive(false);
   }, []);
 
   return (

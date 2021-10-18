@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { Form } from '@unform/web';
 import { useHistory, Link } from 'react-router-dom';
 
+import { useApp } from '../../providers/AppProvider';
+
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import Input from '../../components/Input';
@@ -21,6 +23,7 @@ function CheckDeposit() {
   const inputFileRef = useRef(null);
   const [amount, setAmount] = useState(0);
   const [checkImage, setCheckImage] = useState(null);
+  const { setIsMenuActive } = useApp();
 
   const onFilechange = e => {
     const reader = new FileReader();
@@ -86,6 +89,7 @@ function CheckDeposit() {
   useEffect(() => {
     window.document.title = 'BNB Bank - Check Deposit';
     window.scrollTo(0, 0);
+    setIsMenuActive(false);
   }, []);
 
   return (

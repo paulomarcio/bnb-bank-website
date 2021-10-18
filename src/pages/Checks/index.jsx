@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import { TransactionStatus } from '../../utils/contants';
+import { useApp } from '../../providers/AppProvider';
 
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
 function Checks() {
+  const { setIsMenuActive } = useApp();
   const [selectedStatus, setSelectedStatus] = useState(
     TransactionStatus.PENDING,
   );
@@ -17,6 +19,7 @@ function Checks() {
   useEffect(() => {
     window.document.title = 'BNB Bank - Checks';
     window.scrollTo(0, 0);
+    setIsMenuActive(false);
   }, []);
 
   return (
