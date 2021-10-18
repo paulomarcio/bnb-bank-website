@@ -29,11 +29,13 @@ function SignIn() {
       await api
         .post('sessions', data)
         .then(response => {
-          sessionStorage.setItem('user', JSON.stringify(response.data));
-          setUser(response.data);
+          const user = response.data;
+          const mainPage = user.is_admin ? '/incomes' : '/home';
+          sessionStorage.setItem('user', JSON.stringify(user));
+          setUser(user);
 
           // Redirecting authenticated user to home page
-          history.push('/home');
+          history.push(mainPage);
         })
         .catch(err => {
           console.log(err);

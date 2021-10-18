@@ -4,13 +4,27 @@ export const AppContext = createContext();
 
 function AppProvider({ children }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [selectedCheck, setSelectedCheck] = useState(null);
   const [user, setUser] = useState(() => {
     return JSON.parse(sessionStorage.getItem('user')) || false;
   });
 
   return (
     <AppContext.Provider
-      value={{ isMenuActive, setIsMenuActive, user, setUser }}
+      value={{
+        isMenuActive,
+        setIsMenuActive,
+        user,
+        setUser,
+        transactions,
+        setTransactions,
+        selectedCheck,
+        setSelectedCheck,
+        filteredTransactions,
+        setFilteredTransactions,
+      }}
     >
       {children}
     </AppContext.Provider>

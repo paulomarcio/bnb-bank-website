@@ -1,9 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import NumberFormat from 'react-number-format';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import { Link } from 'react-router-dom';
+
+import { TransactionType } from '../../utils/contants';
+import { useApp } from '../../providers/AppProvider';
 
 import HeaderWithFilter from '../../components/HeaderWithFilter';
 import Sidebar from '../../components/Sidebar';
 
+import api from '../../services/api';
+
 function ChecksControl() {
+  const {
+    user,
+    setIsMenuActive,
+    transactions,
+    setTransactions,
+    filteredTransactions,
+  } = useApp();
+
+  useEffect(() => {
+    const loadTransactions = async () => {
+      const { token } = user;
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      await api
+        .get('transactions', config)
+        .then(response => {
+          setTransactions(response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    };
+
+    window.document.title = 'BNB Bank - Home';
+    window.scrollTo(0, 0);
+    setIsMenuActive(false);
+
+    loadTransactions();
+  }, []);
+
   return (
     <section className="checkList">
       <HeaderWithFilter title="CHECKS CONTROL" />
@@ -13,71 +54,61 @@ function ChecksControl() {
         <div className="transactions">
           <div className="container">
             <ul>
-              <li>
-                <div className="transactionsDetails">
-                  <a href="/">
-                    <h4>T-shirt</h4>
-                    <p>08/18/2021, 02:25 PM</p>
-                  </a>
-                </div>
-                <div className="transactionsPrice">
-                  <a href="/">
-                    <p className="positive">$40,00</p>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="transactionsDetails">
-                  <a href="/">
-                    <h4>Freelance work</h4>
-                    <p>08/16/2021, 05:43 PM</p>
-                  </a>
-                </div>
-                <div className="transactionsPrice">
-                  <a href="/">
-                    <p className="positive">$3200,00</p>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="transactionsDetails">
-                  <a href="/">
-                    <h4>Grandmas gift</h4>
-                    <p>08/13/2021, 10:03 AM</p>
-                  </a>
-                </div>
-                <div className="transactionsPrice">
-                  <a href="/">
-                    <p className="positive">$300,00</p>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="transactionsDetails">
-                  <a href="/">
-                    <h4>Groceries</h4>
-                    <p>08/12/2021, 07:25 PM</p>
-                  </a>
-                </div>
-                <div className="transactionsPrice">
-                  <a href="/">
-                    <p className="positive">$250,00</p>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="transactionsDetails">
-                  <a href="/">
-                    <h4>Lens</h4>
-                    <p>10/22/2021, 07:45 PM</p>
-                  </a>
-                </div>
-                <div className="transactionsPrice">
-                  <a href="/">
-                    <p className="positive">$100,00</p>
-                  </a>
-                </div>
-              </li>
+              {transactions
+                .filter(
+                  transaction =>
+                    transaction.description.search(filteredTransactions) > -1,
+                )
+                .map(transaction => (
+                  <li key={transaction.id}>
+                    <div className="transactionsDetails">
+                      <Link to="/incomes/details">
+                        <h4>{transaction.description}</h4>
+                        <p>
+                          {format(
+                            parse(
+                              transaction.transaction_date,
+                              'yyyy-MM-dd',
+                              new Date(),
+                            ),
+                            'dd/MM/yyyy',
+                          )}
+                        </p>
+                      </Link>
+                    </div>
+                    <div className="transactionsPrice">
+                      <Link to="/incomes/details">
+                        {transaction.type === TransactionType.EXPENSE && (
+                          <p className="negative">
+                            <NumberFormat
+                              value={transaction.amount}
+                              displayType="text"
+                              thousandSeparator
+                              prefix="-$"
+                              renderText={(value, props) => (
+                                <span {...props}>{value}</span>
+                              )}
+                            />
+                          </p>
+                        )}
+
+                        {transaction.type === TransactionType.INCOME && (
+                          <p className="positive">
+                            <NumberFormat
+                              value={transaction.amount}
+                              displayType="text"
+                              thousandSeparator
+                              prefix="$"
+                              renderText={(value, props) => (
+                                <span {...props}>{value}</span>
+                              )}
+                            />
+                          </p>
+                        )}
+                      </Link>
+                    </div>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>

@@ -8,7 +8,7 @@ import icoFilterSvg from '../../assets/images/ico-filter.svg';
 function HeaderWithFilter({ title = 'BNB Bank' }) {
   const formRef = useRef(null);
   const [showSearch, setShowSearch] = useState(false);
-  const { setIsMenuActive } = useApp();
+  const { setIsMenuActive, setFilteredTransactions, user } = useApp();
 
   const handleMenuBarClick = () => {
     setIsMenuActive(true);
@@ -16,6 +16,10 @@ function HeaderWithFilter({ title = 'BNB Bank' }) {
 
   const handleShowSearchClick = () => {
     setShowSearch(!showSearch);
+  };
+
+  const handleSearchTransactions = e => {
+    setFilteredTransactions(e.target.value);
   };
 
   return (
@@ -45,7 +49,11 @@ function HeaderWithFilter({ title = 'BNB Bank' }) {
       <Form ref={formRef}>
         <div className={showSearch ? 'input-search active' : 'input-search'}>
           <div className="container">
-            <input type="text" placeholder="Search" />
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={e => handleSearchTransactions(e)}
+            />
           </div>
         </div>
       </Form>
