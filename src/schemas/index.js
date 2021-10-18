@@ -12,12 +12,18 @@ export const signInSchema = {
 };
 
 export const createTransactionSchema = {
-  amount: yup.number().required('You must fill an amount'),
+  amount: yup
+    .number()
+    .moreThan(0, 'You must fill a number greater than zero')
+    .required('You must fill an amount'),
   transaction_date: yup.date().nullable().required('You must fill a date'),
   description: yup.string().required('You must fill a description'),
 };
 
 export const depositCheckSchema = {
-  amount: yup.number().required('You must fill an amount'),
+  amount: yup
+    .number()
+    .moreThan(0, 'You must fill a number greater than zero')
+    .required('You must fill an amount'),
   description: yup.string().required('You must fill a description'),
 };

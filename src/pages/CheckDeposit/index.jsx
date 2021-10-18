@@ -149,20 +149,23 @@ function CheckDeposit() {
               </p>
             )}
 
-            <p className="previewImg">
-              <a href="/" onClick={e => triggerInputFile(e)} id="fileSelect">
-                <img src={icoUploadSvg} alt="Upload" />
-                <span>Upload check Picture</span>
-              </a>
-              <input
-                type="file"
-                name="check_image"
-                accept="images/*"
-                style={{ display: 'none' }}
-                ref={inputFileRef}
-                onChange={onFilechange}
-              />
-            </p>
+            {!checkImage && (
+              <p className="previewImg">
+                <a href="/" onClick={e => triggerInputFile(e)} id="fileSelect">
+                  <img src={icoUploadSvg} alt="Upload" />
+                  <span>Upload check Picture</span>
+                </a>
+                <input
+                  type="file"
+                  name="check_image"
+                  accept="images/*"
+                  style={{ display: 'none' }}
+                  ref={inputFileRef}
+                  onChange={onFilechange}
+                />
+              </p>
+            )}
+
             <button type="submit">Deposit Check</button>
           </Form>
         </div>

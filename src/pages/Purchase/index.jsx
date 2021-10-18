@@ -36,7 +36,9 @@ function Purchase() {
         amount: Number(
           String(amount).replace('$', '').replace(',', '.'),
         ).toFixed(2),
-        transaction_date: format(transaction_date, 'yyyy-MM-dd'),
+        transaction_date: transaction_date
+          ? format(transaction_date, 'yyyy-MM-dd')
+          : null,
         description,
       };
 
@@ -65,6 +67,7 @@ function Purchase() {
         formRef.current.setErrors(validationErrors);
       } else {
         // TO-DO: Implement error handler for other type of errors
+        console.log(err);
       }
     }
   };
