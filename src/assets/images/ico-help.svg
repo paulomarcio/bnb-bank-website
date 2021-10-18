@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="62.976" height="62.976" viewBox="0 0 62.976 62.976">
+  <g id="ico-help" transform="translate(2 2)">
+    <g id="Outlined" transform="translate(-2 -2)">
+      <g id="Action">
+        <g id="Outlined-_-Action-_-help" data-name="Outlined-/-Action-/-help">
+          <g id="Group_3" data-name="Group 3">
+            <path id="Path" d="M0,0H62.976V62.976H0Z" fill="none" fill-rule="evenodd"/>
+            <path id="_-Icon-Color" data-name="🔹-Icon-Color" d="M28.24,2A26.24,26.24,0,1,0,54.48,28.24,26.249,26.249,0,0,0,28.24,2Zm2.624,44.608H25.616V41.36h5.248ZM36.3,26.272l-2.362,2.414a8.933,8.933,0,0,0-3.07,7.426H25.616V34.8a10.562,10.562,0,0,1,3.07-7.426l3.254-3.306a5.131,5.131,0,0,0,1.548-3.7,5.248,5.248,0,1,0-10.5,0H17.744a10.5,10.5,0,1,1,20.992,0A8.35,8.35,0,0,1,36.3,26.272Z" transform="translate(3.248 3.248)" fill="#7dc3fd" fill-rule="evenodd"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

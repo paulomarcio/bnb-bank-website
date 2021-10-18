@@ -1,0 +1,871 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-family: 'Lato', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: calc(100% - 40px);
+    margin: 0 auto;
+  }
+  /* Login */
+  .login-header {
+    display: block;
+    padding-top: 120px;
+    padding-bottom: 30px;
+    background-color: #2799fb;
+    text-align: center;
+  }
+  .login-header h1 {
+    color: #fff;
+    font-size: 1.75rem;
+    font-weight: 400;
+  }
+  .login-content {
+    display: block;
+    margin-top: 40px;
+    width: 100%;
+  }
+  .login-content input {
+    display: block;
+    border: 2px solid #c9e6fe;
+    color: rgb(161, 194, 214);
+    font-size: 1rem;
+    border-radius: 100px;
+    width: calc(100% - 22px);
+    height: 50px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    line-height: 40px;
+    transition: 0.3s ease-in-out;
+  }
+  .login-content input::placeholder {
+    color: #c9e6fe;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .login-content input:focus {
+    outline: none;
+    border-color: #2799fb;
+  }
+  .login-content input.invalid {
+    border-color: #fb2e27;
+  }
+  .login-content span.error {
+    color: #fb2e27;
+    font-size: 12px;
+    position: relative;
+    top: -20px;
+    left: 20px;
+  }
+  .login-content button {
+    display: block;
+    width: 100%;
+    height: 55px;
+    margin-top: 40px;
+    background: #2799fb;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .login-footer {
+    display: block;
+    margin-top: 50px;
+    text-align: center;
+  }
+  .login-footer::before {
+    display: block;
+    content: '';
+    width: 20px;
+    height: 2px;
+    border-radius: 100px;
+    background: #c3e3fe;
+    margin: 0 auto 20px auto;
+  }
+  .login-footer a {
+    text-decoration: none;
+    color: #b2d0e9;
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+  /* Balance Home */
+  header {
+    display: block;
+    position: relative;
+    padding: 30px 20px 20px;
+    background: #bde0fe;
+    text-align: center;
+  }
+  header h1 {
+    display: inline-block;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    margin: 0 auto;
+  }
+  .menu-mobile {
+    display: flex;
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    left: 20px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .menu-mobile span {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    border-radius: 100px;
+  }
+  .menu-mobile span:nth-child(1) {
+    top: 0;
+  }
+  .menu-mobile span:nth-child(3) {
+    bottom: 0;
+  }
+  .sidebar {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    top: 0%;
+    z-index: 99999;
+  }
+  .sidebar.active {
+    display: block;
+  }
+  .active .sidebar-content {
+    display: block;
+    animation: animaMenuMobile 0.4s forwards;
+  }
+  .sidebar-content {
+    display: none;
+    width: 60%;
+    height: 100%;
+    background: #2799fb;
+    overflow: scroll;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: 0.5s ease-in-out;
+  }
+  .sidebar-content .sidebar-header {
+    padding: 40px 0 30px 0;
+    background: #bde0fe;
+    text-align: center;
+  }
+  .sidebar-content .sidebar-header h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .sidebar-content ul {
+    margin-top: 30px;
+    padding: 0 20px;
+  }
+  .sidebar-content ul li {
+    margin-bottom: 25px;
+  }
+  .sidebar-content ul li a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+  }
+  .sidebar-content ul li a i {
+    margin-right: 20px;
+  }
+  .sidebar-content ul li a i img {
+    fill: #fff;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+  .currentBalance {
+    background: #bde0fe;
+  }
+  .currentBalance input {
+    display: none;
+  }
+  .currentBalance-value {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .currentBalance h3 {
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding-top: 10px;
+  }
+  .currentBalance-value > p {
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .monthCheckbox p {
+    font-size: 1rem;
+    color: #fff;
+  }
+  .monthCheckbox p i svg {
+    display: inline-block;
+    width: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+    transition: 0.2s ease-in-out;
+  }
+  .currentBalance input:checked + label .monthCheckbox p i svg {
+    transform: rotate(180deg);
+  }
+
+  .Balance-Content {
+    display: none;
+  }
+  .currentBalance input:checked + label .Balance-Content {
+    display: block;
+    animation: animaDropDown 0.4s forwards;
+  }
+  .BalIncomes {
+    background: #daefff;
+    padding: 10px 0;
+  }
+  .BalExpenses {
+    background: #f1f9fe;
+    padding: 10px 0;
+  }
+  .BalIncomes > div,
+  .BalExpenses > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .BalIncomes div div:nth-child(2),
+  .BalExpenses div div:nth-child(2) {
+    width: 100px;
+    text-align: center;
+  }
+  .BalIncomes h3,
+  .BalIncomes p,
+  .BalExpenses h3,
+  .BalExpenses p {
+    color: #2799fb;
+    font-weight: bold;
+  }
+  .BalIncomes h3,
+  .BalExpenses h3 {
+    margin-bottom: 5px;
+  }
+  .BalIncomes a strong,
+  .BalExpenses a strong {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: -10px;
+  }
+  .BalIncomes a,
+  .BalExpenses a {
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    color: #2799fb;
+  }
+  .transactions {
+    background: #fff;
+    padding-block: 20px;
+  }
+  .transactions h3 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    color: #2799fb;
+    margin-bottom: 20px;
+  }
+  .transactions ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+  .transactions ul li + li {
+    border-top: 1px dashed #daefff;
+  }
+  .transactions ul li h4 {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .transactions ul li p {
+    font-size: 0.813rem;
+    font-weight: 400;
+    color: #2799fb;
+  }
+  .transactions ul li .transactionsPrice {
+    font-size: 0.875rem;
+    font-weight: bold;
+  }
+  .transactions ul li .transactionsPrice .negative {
+    color: red;
+  }
+  .transactions ul li .transactionsPrice .positive {
+    color: #2799fb;
+  }
+  /* Expenses */
+  .expenses header,
+  .addPurchase header,
+  .acceptedChecks header,
+  .depositCheck header,
+  .checkList header {
+    background: #f1f9fe;
+  }
+  .expenses header h1,
+  .addPurchase header h1,
+  .acceptedChecks header h1,
+  .depositCheck header h1,
+  .checkList header h1 {
+    color: #2799fb;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  .expenses .menu-mobile span,
+  .addPurchase .menu-mobile span,
+  .acceptedChecks .menu-mobile span,
+  .depositCheck .menu-mobile span,
+  .checkList .menu-mobile span {
+    background: #2799fb;
+  }
+  .MonthExpenses {
+    background: #f1f9fe;
+  }
+  .MonthExpenses input {
+    display: none;
+  }
+  .MonthExpenses .monthCheckbox h3 {
+    color: #2799fb;
+    text-transform: none;
+    font-size: 0.875rem;
+    padding-block: 10px;
+  }
+  .MonthExpenses .monthCheckbox h3 i svg {
+    width: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+    transition: 0.2s ease-in-out;
+  }
+  .MonthExpenses input:checked + label .monthCheckbox h3 i svg {
+    transform: rotate(180deg);
+  }
+  .MonthExpenses .monthCheckbox h3 i svg path {
+    fill: #2799fb;
+  }
+  .Expenses-Content {
+    display: none;
+  }
+  .MonthExpenses input:checked + label .Expenses-Content {
+    display: block;
+    animation: animaDropDown 0.4s forwards;
+  }
+  .floatBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    text-align: center;
+  }
+  .floatBtn a {
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5rem;
+    background: #2799fb;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+  }
+  /* Add Purchase */
+  .purchaseValue {
+    background: #f1f9fe;
+    padding-block: 10px;
+  }
+  .purchaseValue h2 {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #74beff;
+    margin-bottom: 5px;
+  }
+  .purchaseValue p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .purchaseContent {
+    margin-top: 40px;
+  }
+  .purchaseContent p {
+    margin-bottom: 20px;
+  }
+  .purchaseContent div.paragraph {
+    margin-bottom: 20px;
+  }
+  .purchaseContent label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #b3cce1;
+    margin-bottom: 5px;
+  }
+  .purchaseContent label i {
+    display: inline-block;
+    margin-right: 10px;
+    width: 15px;
+    vertical-align: middle;
+  }
+  .purchaseContent label i img {
+    width: 20px;
+  }
+  .purchaseContent p:nth-child(2) label i img {
+    width: 15px;
+  }
+  .purchaseContent input {
+    width: 70%;
+    border: none;
+    border-bottom: 1px solid #b3cce1;
+    padding: 0 20px 5px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .purchaseContent input::placeholder {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .purchaseContent input:focus {
+    outline: none;
+    border-color: #2799fb;
+  }
+  .purchaseContent input.invalid {
+    border-color: #fb2e27;
+  }
+  .purchaseContent span.error {
+    color: #fb2e27;
+    font-size: 12px;
+    text-transform: none;
+    text-align: left;
+    width: 100%;
+  }
+  .purchaseContent p:nth-child(3) input {
+    width: calc(100% - 40px);
+  }
+  .purchaseContent p > span {
+    display: inline-block;
+    width: 15%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .purchaseContent button[type='submit'] {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    width: calc(100% - 40px);
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background: #2799fb;
+    color: #fff;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  /* Accepted Checks */
+  .balance .monthCheckbox {
+    background: transparent;
+  }
+  .monthCheckbox,
+  .navTab {
+    background: #f1f9fe;
+  }
+  .monthAccptedChecks input {
+    display: none;
+  }
+  .monthAccptedChecks h3 {
+    color: #2799fb;
+    text-transform: none;
+    font-size: 0.875rem;
+    padding-block: 10px;
+  }
+  .monthAccptedChecks h3 i svg {
+    width: 20px;
+    vertical-align: middle;
+    margin-left: 10px;
+    transition: 0.2s ease-in-out;
+  }
+  .monthAccptedChecks input:checked + label h3 i svg {
+    transform: rotate(180deg);
+  }
+  .monthAccptedChecks h3 i svg path {
+    fill: #2799fb;
+  }
+  .AccptedChecks-Content {
+    display: none;
+  }
+  .monthAccptedChecks input:checked + label .AccptedChecks-Content {
+    display: block;
+    animation: animaDropDown 0.3s forwards;
+  }
+
+  .navTab {
+    display: flex;
+    justify-content: space-around;
+    width: (100% - 40px);
+  }
+  .navTab input + label h3 {
+    transition: 0.3s ease-in-out;
+    padding-inline: 35px;
+  }
+  .navTab input:checked + label h3 {
+    transition: 0.3s ease-in-out;
+  }
+  .navTab input:checked + label h3::after {
+    display: block;
+    position: relative;
+    bottom: -10px;
+    content: '';
+    width: auto;
+    height: 3px;
+    background: #65b4e9;
+    margin: 0 auto;
+  }
+  .AccptedChecks-Content .transactions {
+    display: block;
+  }
+  /* Deposit a Check */
+  .DepositValue {
+    background: #f1f9fe;
+    padding-block: 20px;
+  }
+  .DepositValue h2 {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #74beff;
+    margin-bottom: 5px;
+    vertical-align: middle;
+  }
+
+  .DepositValue p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .DepositCheckContent {
+    margin-top: 40px;
+  }
+
+  .DepositCheckContent form > p {
+    margin-bottom: 20px;
+  }
+  .DepositCheckContent form label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #b3cce1;
+    margin-bottom: 5px;
+  }
+  .DepositCheckContent form label i {
+    display: inline-block;
+    width: 15px;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+  .DepositCheckContent form label i img {
+    display: inline-block;
+    width: 20px;
+    vertical-align: middle;
+  }
+  .DepositCheckContent input {
+    width: 70%;
+    border: none;
+    border-bottom: 1px solid #b3cce1;
+    padding: 0 20px 5px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .DepositCheckContent input::placeholder {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .DepositCheckContent input:focus {
+    outline: none;
+    border-color: #2799fb;
+  }
+  .DepositCheckContent input.invalid {
+    border-color: #fb2e27;
+  }
+  .DepositCheckContent span.error {
+    color: #fb2e27;
+    font-size: 12px;
+    text-transform: none;
+    text-align: left;
+    width: 100%;
+  }
+  .DepositCheckContent p:nth-child(4) input {
+    width: calc(100% - 45px);
+  }
+
+  .DepositCheckContent p > span {
+    display: inline-block;
+    width: 15%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2799fb;
+  }
+  .DepositCheckContent form .disclaimer {
+    width: 80%;
+    margin-top: -10px !important;
+    font-size: 0.75rem;
+    color: #b3cce1;
+  }
+  .DepositCheckContent form .previewImg {
+    display: block;
+
+    border: 1px dashed #cae7fe;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  .DepositCheckContent form .previewImg a {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    margin: 0 auto;
+    padding: 50px 0;
+  }
+  .DepositCheckContent form .previewImg a img {
+    display: block;
+    margin: 0 auto;
+  }
+  .DepositCheckContent form .previewImg a span {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #bde0fe;
+  }
+
+  .DepositCheckContent button {
+    display: block;
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background: #2799fb;
+    color: #fff;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+  /* Check List */
+  .ico-search {
+    position: absolute;
+    right: 20px;
+    margin-top: -5px;
+    border: none;
+    background: transparent;
+  }
+  .input-search {
+    background: #f1f9fe;
+    padding: 0 0 10px 0;
+  }
+
+  .input-search input {
+    display: none;
+    width: calc(100% - 20px);
+    height: 30px;
+    padding-left: 20px;
+    border: 2px solid #cde7fd;
+    border-radius: 5px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #83b9e9;
+    transition: 0.3s ease-in-out;
+  }
+  .input-search.active input {
+    display: block;
+    animation: animaDropDown 0.1s forwards;
+  }
+  .input-search input::placeholder {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #83b9e9;
+  }
+  .input-search input:focus {
+    outline: none;
+    border-color: #2799fb;
+  }
+  .transactions ul li a {
+    text-decoration: none;
+  }
+  .transactions ul li:last-child {
+    border-bottom: 1px dashed #daefff;
+  }
+  /* Check Details */
+  .checkDetails-Content {
+    margin-top: 40px;
+  }
+  .checkDetails-Content ul li {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  .checkDetails-Content ul li img {
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 15px;
+    top: -20px;
+  }
+  .checkDetails-Content ul li:nth-child(3) img {
+    width: 15px;
+  }
+  .checkDetails-Content ul li:nth-child(4) img {
+    width: 22px;
+  }
+  .checkDetails-Content ul li a {
+    text-decoration: none;
+  }
+  .checkDetails-Content ul li p {
+    display: inline-block;
+    color: #2799fb;
+    font-size: 0.813rem;
+    font-weight: 600;
+  }
+  .checkDetails-Content ul li p strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #bde0fe;
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+  .checkDetails-Content ul li a i img {
+    position: absolute;
+    display: inline-block;
+    width: 25px;
+    right: 0px;
+    top: 10px;
+  }
+  .checkDetails-Content ul li:nth-child(1) a,
+  .checkDetails-Content ul li:last-child a {
+    pointer-events: none;
+  }
+  .checkDetails-Content ul li:nth-child(3) a i img {
+    display: inline-block;
+    width: 25px;
+  }
+  .photoCheck {
+    display: block;
+    width: 100%;
+  }
+  .photoCheck img {
+    display: block;
+    width: 100%;
+  }
+  .btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  .btns button {
+    border: none;
+    border-radius: 5px;
+    width: 47%;
+    height: 50px;
+    background: #2799fb;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #fff;
+  }
+  .btns button:nth-child(1) {
+    background: transparent;
+    border: 1px solid #2799fb;
+    color: #2799fb;
+  }
+  .btns button img {
+    display: inline-block;
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  /* Animations */
+  @keyframes animaDropDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+  }
+  @keyframes animaMenuMobile {
+    0% {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  .login-header {
+    padding-top: 80px;
+  }
+  .login-content input {
+    height: 40px;
+    font-size: 0.875rem;
+  }
+  .login-content input::placeholder {
+    font-size: 0.875rem;
+  }
+  .login-content button {
+    margin-top: 30px;
+    height: 50px;
+  }
+  .login-footer {
+    margin-top: 40px;
+  }
+  /* Add Purchase */
+  .purchaseContent input {
+    width: 65%;
+  }
+  .navTab input + label h3 {
+    padding-inline: 20px;
+  }
+  /* deposit a Check */
+  .DepositCheckContent input {
+    width: 60%;
+  }
+}
