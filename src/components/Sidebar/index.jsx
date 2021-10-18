@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { useApp } from '../../providers/AppProvider';
 
@@ -35,17 +36,12 @@ function Sidebar() {
         </div>
         <ul>
           <li>
-            <a
-              href="/"
-              onClick={e => {
-                e.preventDefault();
-              }}
-            >
+            <Link to="/home">
               <i>
                 <img src={icoBalanceSvg} alt="Balance" />
               </i>
               Balance
-            </a>
+            </Link>
           </li>
           <li>
             <a
@@ -61,30 +57,20 @@ function Sidebar() {
             </a>
           </li>
           <li>
-            <a
-              href="/"
-              onClick={e => {
-                e.preventDefault();
-              }}
-            >
+            <Link to="/expenses">
               <i>
                 <img src={icoArrowDownSvg} alt="Arrow Down" />
               </i>
-              Exprenses
-            </a>
+              Expenses
+            </Link>
           </li>
           <li>
-            <a
-              href="/"
-              onClick={e => {
-                e.preventDefault();
-              }}
-            >
+            <Link to="/checks">
               <i>
                 <img src={icoChecksSvg} alt="Checks" />
               </i>
               Checks
-            </a>
+            </Link>
           </li>
           <li>
             <a
