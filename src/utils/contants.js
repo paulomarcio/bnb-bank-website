@@ -3,3 +3,8 @@ export const TransactionStatus = {
   PENDING: 'PENDING',
   REJECTED: 'REJECTED',
 };
+
+export const TransactionType = {
+  INCOME: 'INCOME',
+  EXPENSE: 'EXPENSE',
+};
