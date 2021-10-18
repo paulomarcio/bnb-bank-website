@@ -12,6 +12,8 @@ const Checks = lazy(() => import('../../pages/Checks'));
 const CheckDeposit = lazy(() => import('../../pages/CheckDeposit'));
 const ChecksControl = lazy(() => import('../../pages/ChecksControl'));
 const CheckDetail = lazy(() => import('../../pages/CheckDetail'));
+const AdminRoutes = lazy(() => import('../AdminRoutes'));
+const CustomerRoutes = lazy(() => import('../CustomerRoutes'));
 
 function MainRoutes() {
   return (
@@ -21,13 +23,21 @@ function MainRoutes() {
           <Switch>
             <Route path="/" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
-            <Route path="/home" exact component={Home} />
-            <Route path="/expenses" exact component={Expenses} />
-            <Route path="/purchase" exact component={Purchase} />
-            <Route path="/checks" exact component={Checks} />
-            <Route path="/checks/deposit" exact component={CheckDeposit} />
-            <Route path="/incomes" exact component={ChecksControl} />
-            <Route path="/incomes/details" exact component={CheckDetail} />
+            <CustomerRoutes path="/home" exact component={Home} />
+            <CustomerRoutes path="/expenses" exact component={Expenses} />
+            <CustomerRoutes path="/purchase" exact component={Purchase} />
+            <CustomerRoutes path="/checks" exact component={Checks} />
+            <CustomerRoutes
+              path="/checks/deposit"
+              exact
+              component={CheckDeposit}
+            />
+            <AdminRoutes path="/incomes" exact component={ChecksControl} />
+            <AdminRoutes
+              path="/incomes/details"
+              exact
+              component={CheckDetail}
+            />
           </Switch>
         </Suspense>
       </AppProvider>

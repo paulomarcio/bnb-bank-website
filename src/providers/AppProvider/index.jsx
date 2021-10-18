@@ -4,9 +4,14 @@ export const AppContext = createContext();
 
 function AppProvider({ children }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
+  const [user, setUser] = useState(() => {
+    return JSON.parse(sessionStorage.getItem('user')) || false;
+  });
 
   return (
-    <AppContext.Provider value={{ isMenuActive, setIsMenuActive }}>
+    <AppContext.Provider
+      value={{ isMenuActive, setIsMenuActive, user, setUser }}
+    >
       {children}
     </AppContext.Provider>
   );
